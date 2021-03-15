@@ -39,6 +39,10 @@ caches/deploy:
 .PHONY: deploy
 deploy: operator/install cluster/libs cluster/deploy caches/deploy
 
+.PHONY: server/customimage
+server/customimage:
+	@podman build -f customimage/Dockerfile . -t $(CUSTOM_IMAGE)
+
 .PHONY: clean
 clean:
 	@oc delete project $(DG_NAMESPACE) || true
